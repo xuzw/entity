@@ -21,7 +21,7 @@ import com.github.xuzw.entity.model.EntityBuilder;
  * @author 徐泽威 xuzewei_2012@126.com
  * @time 2017年3月23日 下午3:37:57
  */
-public class SearchSpace {
+public class EntitySearchSpace {
     public static final Label label_entity = Label.label("entity");
     public static final String node_prop_key_name = "name";
     public static final String node_prop_key_shortNames = "shortNames";
@@ -29,7 +29,7 @@ public class SearchSpace {
     private String workPath;
     private GraphDatabaseService graphDb;
 
-    public SearchSpace(String workPath) {
+    public EntitySearchSpace(String workPath) {
         this.workPath = workPath;
         graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(new File(workPath));
     }
@@ -55,6 +55,15 @@ public class SearchSpace {
             tx.success();
         }
         return has;
+    }
+
+    public Node findNode(String name) {
+        Node node = null;
+        try (Transaction tx = graphDb.beginTx()) {
+            node = _findNode(name);
+            tx.success();
+        }
+        return node;
     }
 
     public Entity search(String string) {
@@ -135,8 +144,8 @@ public class SearchSpace {
         }
     }
 
-    public void loadRepository(String repositoryPath) throws IOException, RepositoryFileFormatException {
-        RepositoryReader repositoryReader = new RepositoryReader(repositoryPath);
+    public void loadEntityRepository(String repositoryPath) throws IOException, EntityRepositoryFileFormatException {
+        EntityRepositoryReader repositoryReader = new EntityRepositoryReader(repositoryPath);
         Entity entity = null;
         while ((entity = repositoryReader.read()) != null) {
             load(entity);
@@ -144,8 +153,8 @@ public class SearchSpace {
         repositoryReader.close();
     }
 
-    public void unloadRepository(String repositoryPath) throws IOException, RepositoryFileFormatException {
-        RepositoryReader repositoryReader = new RepositoryReader(repositoryPath);
+    public void unloadEntityRepository(String repositoryPath) throws IOException, EntityRepositoryFileFormatException {
+        EntityRepositoryReader repositoryReader = new EntityRepositoryReader(repositoryPath);
         Entity entity = null;
         while ((entity = repositoryReader.read()) != null) {
             unload(entity);

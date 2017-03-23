@@ -10,20 +10,20 @@ import org.apache.commons.io.IOUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.xuzw.entity.api.RepositoryFileFormat.LineType;
-import com.github.xuzw.entity.api.RepositoryFileFormat.Metadata;
+import com.github.xuzw.entity.api.EntityRepositoryFileFormat.LineType;
+import com.github.xuzw.entity.api.EntityRepositoryFileFormat.Metadata;
 import com.github.xuzw.entity.model.Entity;
 
 /**
  * @author 徐泽威 xuzewei_2012@126.com
  * @time 2017年3月23日 下午3:07:49
  */
-public class RepositoryReader {
+public class EntityRepositoryReader {
     private String path;
     private FileReader reader;
     private BufferedReader bReader;
 
-    public RepositoryReader(String path) throws FileNotFoundException {
+    public EntityRepositoryReader(String path) throws FileNotFoundException {
         this.path = path;
         reader = new FileReader(path);
         bReader = new BufferedReader(reader);
@@ -33,7 +33,7 @@ public class RepositoryReader {
         return path;
     }
 
-    public Entity read() throws IOException, RepositoryFileFormatException {
+    public Entity read() throws IOException, EntityRepositoryFileFormatException {
         String line = bReader.readLine();
         if (line == null) {
             return null;
@@ -44,7 +44,7 @@ public class RepositoryReader {
             Metadata metadata = JSON.toJavaObject(json, Metadata.class);
             String nextLine = bReader.readLine();
             if (!_isValidSign(metadata.getSign(), nextLine)) {
-                throw new RepositoryFileFormatException("invalid sign");
+                throw new EntityRepositoryFileFormatException("invalid sign");
             }
             return JSONObject.parseObject(nextLine, Entity.class);
         } else if (lineType == LineType.entity) {

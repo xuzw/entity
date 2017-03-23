@@ -1,7 +1,7 @@
 package com.github.xuzw.entity;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.xuzw.entity.api.RepositoryReader;
+import com.github.xuzw.entity.api.EntityRepositoryReader;
 
 /**
  * @author 徐泽威 xuzewei_2012@126.com
@@ -10,7 +10,7 @@ import com.github.xuzw.entity.api.RepositoryReader;
 public class ReaderTest {
     public static void main(String[] args) throws Exception {
         String path = "/Users/xuzewei/tmp/entity.repository";
-        RepositoryReader repositoryReader = new RepositoryReader(path);
+        EntityRepositoryReader repositoryReader = new EntityRepositoryReader(path);
         System.out.println(JSONObject.toJSONString(repositoryReader.read()));
         System.out.println(JSONObject.toJSONString(repositoryReader.read()));
         System.out.println(JSONObject.toJSONString(repositoryReader.read()));

@@ -6,7 +6,7 @@ import java.util.TreeMap;
  * @author 徐泽威 xuzewei_2012@126.com
  * @time 2017年3月23日 下午2:50:30
  */
-public class RepositoryFileFormat {
+public class EntityRepositoryFileFormat {
     public static final String line_separator = "\n";
     public static final String encoding = "utf-8";
 
