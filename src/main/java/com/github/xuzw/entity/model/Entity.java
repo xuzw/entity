@@ -54,4 +54,18 @@ public class Entity {
         treeMap.put("timestamp", timestamp);
         return treeMap;
     }
+
+    public boolean hasName(String name) {
+        if (this.name.equalsIgnoreCase(name)) {
+            return true;
+        }
+        if (shortNames != null) {
+            for (String shortName : shortNames) {
+                if (shortName.equalsIgnoreCase(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
