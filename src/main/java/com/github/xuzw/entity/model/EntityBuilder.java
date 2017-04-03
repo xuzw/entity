@@ -29,6 +29,11 @@ public class EntityBuilder {
         return this;
     }
 
+    public EntityBuilder shortNames(List<String> shortNames) {
+        this.shortNames.addAll(shortNames);
+        return this;
+    }
+
     public EntityBuilder property(String key, String value) {
         properties.put(key, value);
         return this;
